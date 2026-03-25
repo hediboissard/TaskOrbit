@@ -1,0 +1,26 @@
+{
+  "name": "taskorbit-frontend",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@tailwindcss/forms": "^0.5.11",
+    "nuxt": "^3.9.0",
+    "tailwindcss": "^3.4.19",
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "@vee-validate/rules": "^4.12.2",
+    "axios": "^1.13.6",
+    "pinia": "^2.3.1",
+    "vee-validate": "^4.15.1",
+    "yup": "^1.7.1"
+  }
+}

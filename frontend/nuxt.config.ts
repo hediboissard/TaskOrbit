@@ -5,6 +5,9 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'fr' },
       titleTemplate: (titleChunk?: string) =>
         titleChunk ? `${titleChunk} · TaskOrbit` : 'TaskOrbit',
+      link: [
+        { rel: 'icon', type: 'image/png', sizes: '64x64', href: '/favicon.png' },
+      ],
     },
   },
   devServer: {

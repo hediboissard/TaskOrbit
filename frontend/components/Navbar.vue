@@ -33,11 +33,12 @@ const handleLogout = () => {
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-          <NuxtLink to="/" class="flex items-center gap-2 group">
-            <div class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center group-hover:bg-indigo-400 transition-colors">
-              <span class="text-white text-sm font-bold">T</span>
-            </div>
-            <span class="text-white font-bold text-xl tracking-tight">TaskOrbit</span>
+          <NuxtLink to="/" class="flex items-center group">
+            <img
+              src="/logo-nav.png"
+              alt="TaskOrbit"
+              class="h-11 w-auto transition-opacity group-hover:opacity-90"
+            />
           </NuxtLink>
         </div>
 

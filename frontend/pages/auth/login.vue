@@ -56,11 +56,12 @@ const handleSubmit = async () => {
   <div class="w-full max-w-md">
     <!-- Logo / Header -->
     <div class="text-center mb-8">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 backdrop-blur mb-4">
-        <span class="text-3xl">&#9880;</span>
-      </div>
-      <h1 class="text-3xl font-bold text-white">TaskOrbit</h1>
-      <p class="text-indigo-200 mt-1">Connectez-vous à votre compte</p>
+      <img
+        src="/logo-nav.png"
+        alt="TaskOrbit"
+        class="h-20 w-auto mx-auto mb-4"
+      />
+      <p class="text-indigo-200">Connectez-vous à votre compte</p>
     </div>
 
     <!-- Card -->

@@ -53,7 +53,7 @@ export const useAuth = () => {
       localStorage.removeItem('auth_token')
       localStorage.removeItem('auth_user')
     }
-    router.push('/auth/login')
+    router.push('/')
   }
 
   // Load auth state from localStorage on first use (client-side)

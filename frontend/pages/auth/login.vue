@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { safeRedirectPath } from '~/utils/authRedirect'
+
 definePageMeta({ layout: 'auth' })
 useHead({ title: 'Connexion' })
 
 const { login } = useAuth()
 const router = useRouter()
+const route = useRoute()
+
+const redirectAfterLogin = computed(() => safeRedirectPath(route.query.redirect as string | undefined))
+const needsAuthNotice = computed(() => !!redirectAfterLogin.value)
 
 const form = reactive({ email: '', password: '' })
 const errors = reactive({ email: '', password: '' })
@@ -37,7 +43,7 @@ const handleSubmit = async () => {
   serverError.value = ''
   try {
     await login(form.email, form.password)
-    router.push('/dashboard')
+    await router.push(redirectAfterLogin.value || '/dashboard')
   } catch (err: any) {
     serverError.value = err.message || 'Échec de la connexion. Vérifiez vos identifiants.'
   } finally {
@@ -59,6 +65,15 @@ const handleSubmit = async () => {
 
     <!-- Card -->
     <div class="bg-white rounded-2xl shadow-2xl p-8">
+      <div
+        v-if="needsAuthNotice"
+        class="mb-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg flex items-start gap-2"
+      >
+        <span class="text-indigo-600 mt-0.5">&#128274;</span>
+        <p class="text-sm text-indigo-900">
+          Vous devez vous connecter pour accéder à cette partie de l’application et poursuivre votre action.
+        </p>
+      </div>
       <!-- Server Error -->
       <div v-if="serverError" class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
         <span class="text-red-500 mt-0.5">&#9888;</span>
@@ -112,7 +127,10 @@ const handleSubmit = async () => {
 
       <p class="mt-6 text-center text-sm text-gray-600">
         Pas encore de compte ?
-        <NuxtLink to="/auth/register" class="text-indigo-600 font-medium hover:text-indigo-700">
+        <NuxtLink
+          :to="{ path: '/auth/register', query: route.query.redirect ? { redirect: route.query.redirect } : {} }"
+          class="text-indigo-600 font-medium hover:text-indigo-700"
+        >
           S’inscrire
         </NuxtLink>
       </p>

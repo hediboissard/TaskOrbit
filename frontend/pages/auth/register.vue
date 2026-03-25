@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { safeRedirectPath } from '~/utils/authRedirect'
+
 definePageMeta({ layout: 'auth' })
 useHead({ title: 'Inscription' })
 
 const { register } = useAuth()
 const router = useRouter()
+const route = useRoute()
+
+const redirectAfterRegister = computed(() => safeRedirectPath(route.query.redirect as string | undefined))
 
 const form = reactive({ username: '', email: '', password: '' })
 const errors = reactive({ username: '', email: '', password: '' })
@@ -46,7 +51,7 @@ const handleSubmit = async () => {
   serverError.value = ''
   try {
     await register(form.username, form.email, form.password)
-    router.push('/dashboard')
+    await router.push(redirectAfterRegister.value || '/dashboard')
   } catch (err: any) {
     serverError.value = err.message || 'L’inscription a échoué. Veuillez réessayer.'
   } finally {
@@ -136,7 +141,10 @@ const handleSubmit = async () => {
 
       <p class="mt-6 text-center text-sm text-gray-600">
         Vous avez déjà un compte ?
-        <NuxtLink to="/auth/login" class="text-indigo-600 font-medium hover:text-indigo-700">
+        <NuxtLink
+          :to="{ path: '/auth/login', query: route.query.redirect ? { redirect: route.query.redirect } : {} }"
+          class="text-indigo-600 font-medium hover:text-indigo-700"
+        >
           Se connecter
         </NuxtLink>
       </p>

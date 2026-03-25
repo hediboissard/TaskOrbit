@@ -4,6 +4,7 @@
   "description": "TaskOrbit API backend",
   "main": "server.js",
   "scripts": {
+    "build": "node scripts/syntax-check.js",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

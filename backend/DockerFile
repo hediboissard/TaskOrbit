@@ -2,10 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Le build context peut être la racine du monorepo.
+# On copie donc explicitement les fichiers du backend.
+COPY backend/package.json backend/package-lock.json ./
 RUN npm ci --omit=dev
 
-COPY . .
+COPY backend/ ./
 
 EXPOSE 5001
 

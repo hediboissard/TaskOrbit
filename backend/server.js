@@ -11,8 +11,20 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+const allowedOrigins = [
+  'http://localhost:3002',
+  'https://task-orbit-sooty.vercel.app',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: 'http://localhost:3002',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS: origine non autorisée — ${origin}`));
+    }
+  },
   credentials: true,
 }));
 
